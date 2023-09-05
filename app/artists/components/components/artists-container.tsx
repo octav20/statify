@@ -1,33 +1,33 @@
 "use client";
 
 // import useOnPlay from "@/hooks/useOnPlay";
-import { Song } from "@/types";
-import SongItem from "./song-item";
+import { Artist } from "@/types";
+import ArtistItem from "./artist-item";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import useUser from "@/hooks/useUser";
 import { usePathname } from "next/navigation";
 
-const SongsContainer = () => {
+const ArtistsContainer = () => {
   const user = useUser();
-  const [songs, setSongs] = useState<any>([]);
+  const [artists, setArtists] = useState<any>([]);
 
   const pathName = usePathname();
 
   useEffect(() => {
-    const getSongs = async () => {
+    const getArtists = async () => {
       let timeRange = "";
       if (user) {
         try {
-          if (pathName === "/songs/short_term") {
+          if (pathName === "/artists/short_term") {
             timeRange = "short_term";
-          } else if (pathName === "/songs/medium_term") {
+          } else if (pathName === "/artists/medium_term") {
             timeRange = "medium_term";
           } else {
             timeRange = "long_term";
           }
           const response = await axios.get(
-            `https://api.spotify.com/v1/me/top/tracks?time_range=${timeRange}&limit=10&offset=0`,
+            `https://api.spotify.com/v1/me/top/artists?time_range=${timeRange}&limit=10&offset=0`,
             {
               headers: {
                 Authorization: `Bearer ${user}`,
@@ -35,19 +35,19 @@ const SongsContainer = () => {
             }
           );
 
-          const fetchedSongs = response.data.items;
-          setSongs(fetchedSongs);
+          const fetchedArtists = response.data.items;
+          setArtists(fetchedArtists);
         } catch (error) {
-          console.error("Error fetching songs:", error);
+          console.error("Error fetching Artists:", error);
         }
       }
     };
 
-    getSongs();
+    getArtists();
   }, [user]);
-  //   const onPlay = useOnPlay(songs);
-  if (songs.length === 0) {
-    return <div className="mt-4 text-neutral-400">No songs available</div>;
+  //   const onPlay = useOnPlay(Artists);
+  if (artists.length === 0) {
+    return <div className="mt-4 text-neutral-400">No artists available</div>;
   }
   return (
     <div
@@ -63,8 +63,8 @@ const SongsContainer = () => {
       
       m-4"
     >
-      {songs.map((item: Song) => (
-        <SongItem
+      {artists.map((item: Artist) => (
+        <ArtistItem
           key={item.id}
           //   onClick={(id: string) => onPlay(id)}
           data={item}
@@ -74,4 +74,4 @@ const SongsContainer = () => {
   );
 };
 
-export default SongsContainer;
+export default ArtistsContainer;

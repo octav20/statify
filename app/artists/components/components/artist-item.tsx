@@ -1,13 +1,14 @@
 "use client";
-import { Song } from "@/types";
+
+import { Artist } from "@/types";
 import Image from "next/image";
 // import PlayButton from "./PlayButton";
 
-interface SongItemProps {
-  data: Song;
+interface ArtistItemProps {
+  data: Artist;
   //   onClick: (id: string) => void;
 }
-const SongItem: React.FC<SongItemProps> = ({ data }) => {
+const ArtistItem: React.FC<ArtistItemProps> = ({ data }) => {
   return (
     <div
       //   onClick={() => onClick(data.id)}
@@ -38,15 +39,15 @@ const SongItem: React.FC<SongItemProps> = ({ data }) => {
       >
         <Image
           className="object-cover"
-          src={data.album.images[1].url || "/liked.png"}
-          alt="Image"
+          src={data.images[0].url || "/images/liked.png"}
           fill
+          alt="Image"
           sizes="(max-width: 768px) 100vw"
           priority
         />
       </div>
-      <div className="flex flex-col items-start w-full pt-4 gap-y-1 ">
-        <p className="font-semibold truncate w-full">{data.name}</p>
+      <div className="flex flex-col items-center w-full pt-4 gap-y-1 ">
+        <p className="font-semibold  truncate w-full">{data.name}</p>
         <p
           className="
               text-neutral-400
@@ -56,7 +57,7 @@ const SongItem: React.FC<SongItemProps> = ({ data }) => {
               truncate
               "
         >
-          {data.artists[0].name}
+          Messi
         </p>
       </div>
       <div
@@ -71,4 +72,4 @@ const SongItem: React.FC<SongItemProps> = ({ data }) => {
   );
 };
 
-export default SongItem;
+export default ArtistItem;

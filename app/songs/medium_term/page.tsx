@@ -1,7 +1,3 @@
-"use client";
-import useUser from "@/hooks/useUser";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import SongsContainer from "../components/songs-container";
 
 const ShortTerm = () => {
@@ -16,7 +12,7 @@ const ShortTerm = () => {
     >
       <div>
         <h1 className="font-bold text-3xl text-center m-16">
-          Your Songs (Last 4 weeks)
+          Your Songs (Last 6 months)
         </h1>
 
         <SongsContainer />

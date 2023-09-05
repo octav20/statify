@@ -7,6 +7,8 @@ export interface Artist {
   href: string;
   id: string;
   name: string;
+  images: Image[];
+  genres: string[];
   type: string;
   uri: string;
 }

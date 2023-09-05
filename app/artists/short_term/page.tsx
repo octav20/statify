@@ -1,8 +1,4 @@
-"use client";
-import useUser from "@/hooks/useUser";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import SongsContainer from "../components/songs-container";
+import ArtistsContainer from "../components/components/artists-container";
 
 const ShortTerm = () => {
   return (
@@ -16,10 +12,10 @@ const ShortTerm = () => {
     >
       <div>
         <h1 className="font-bold text-3xl text-center m-16">
-          Your Songs (Last 4 weeks)
+          Your Artists (Last 4 weeks)
         </h1>
 
-        <SongsContainer />
+        <ArtistsContainer />
       </div>
     </div>
   );

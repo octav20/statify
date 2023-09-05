@@ -1,7 +1,5 @@
 "use client";
-import useUser from "@/hooks/useUser";
 import axios from "axios";
-import Image from "next/image";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
@@ -14,7 +12,7 @@ const Home = () => {
     if (spotyCode) {
       autenticateUser(spotyCode);
     }
-  });
+  }, []);
 
   const autenticateUser = (spotyCode: string) => {
     try {
@@ -36,41 +34,13 @@ const Home = () => {
         .then((res) => {
           localStorage.setItem("access_token", res.data.access_token);
           localStorage.setItem("refresh_token", res.data.refresh_token);
-          router.push("/");
+          router.push("/songs/short_term");
         });
     } catch (error) {
       console.log(error);
     }
   };
-  const user = useUser();
 
-  if (user) {
-    console.log("Hay usuario");
-  } else {
-    console.log("No hay usuario");
-  }
-
-  // const getUsuario = () => {
-  //   if (typeof window !== "undefined") {
-  //     window.localStorage.getItem("access_token");
-  //     const token = window.localStorage.getItem("access_token");
-  //     if (token) {
-  //       axios
-  //         .get("https://api.spotify.com/v1/me", {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         })
-  //         .then((response) => {
-  //           const nombre = response.data;
-  //           console.log(nombre);
-  //         });
-  //     } else {
-  //       console.log("No hay token");
-  //     }
-  //   }
-  // };
-  // getUsuario();
   return (
     <div
       className="flex justify-center h-fit

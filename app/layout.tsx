@@ -2,6 +2,8 @@ import Navbar from "@/components/navbar";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
+import SessionProviderWrapper from "@/providers/session-provider-wrapper";
+import Navbar2 from "@/components/navbar2";
 
 const font = Figtree({ subsets: ["latin"] });
 
@@ -16,11 +18,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={font.className}>
-        <Navbar />
-        {children}
-      </body>
-    </html>
+    <SessionProviderWrapper>
+      <html lang="en">
+        <body className={font.className}>
+          <Navbar />
+          {/* <Navbar2 /> */}
+          {children}
+        </body>
+      </html>
+    </SessionProviderWrapper>
   );
 }
