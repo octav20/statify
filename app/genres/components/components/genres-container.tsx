@@ -31,7 +31,8 @@ const GenresContainer = () => {
             `https://api.spotify.com/v1/me/top/artists?time_range=${timeRange}&limit=10&offset=0`,
             {
               headers: {
-                Authorization: `Bearer ${user}`,
+                //@ts-ignore
+                Authorization: `Bearer ${user.accessToken}`,
               },
             }
           );

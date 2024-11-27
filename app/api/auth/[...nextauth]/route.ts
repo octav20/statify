@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
 
+// Mueve la configuración de `authOptions` aquí o a un archivo separado.
 const scopes = [
   "user-read-email",
   "user-top-read",
@@ -32,6 +33,7 @@ async function refreshAccessToken(token: any) {
     },
     body: params,
   });
+
   const data = await response.json();
   console.log("Token renovado");
   return {
@@ -41,16 +43,14 @@ async function refreshAccessToken(token: any) {
     accessTokenExpires: Math.floor(Date.now() / 1000) + data.expires_in,
   };
 }
-export const authOptions = {
-  // Configure one or more authentication providers
 
+const authOptions = {
   providers: [
     SpotifyProvider({
       clientId: process.env.NEXT_PUBLIC_CLIENT_ID || "",
       clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET || "",
       authorization: LOGIN_URL,
     }),
-    // ...add more providers here
   ],
   secret: process.env.NEXT_PUBLIC_JWT_SECRET || "",
   pages: {
@@ -58,7 +58,6 @@ export const authOptions = {
   },
   callbacks: {
     async jwt({ token, account }: any) {
-      // Persist the OAuth access_token to the token right after signin
       if (account) {
         token.accessToken = account.access_token;
         token.refreshToken = account.refresh_token;
@@ -71,19 +70,9 @@ export const authOptions = {
         return token;
       }
       return await refreshAccessToken(token);
-
-      // if (
-      //   token.accessTokenExpires &&
-      //   Date.now() < token.accessTokenExpires * 1000
-      // ) {
-      //   return token;
-      // }
-      // return await refreshAccessToken(token);
     },
-    async session({ session, token, user }: any) {
-      // Send properties to the client, like an access_token from a provider.
+    async session({ session, token }: any) {
       session.accessToken = token.accessToken;
-
       return session;
     },
   },
@@ -91,4 +80,5 @@ export const authOptions = {
 
 const handler = NextAuth(authOptions);
 
+// Exporta los métodos HTTP GET y POST
 export { handler as GET, handler as POST };

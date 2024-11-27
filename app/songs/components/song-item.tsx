@@ -1,6 +1,7 @@
 "use client";
 import { Song } from "@/types";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 // import PlayButton from "./PlayButton";
 
 interface SongItemProps {
@@ -8,9 +9,11 @@ interface SongItemProps {
   //   onClick: (id: string) => void;
 }
 const SongItem: React.FC<SongItemProps> = ({ data }) => {
+  const router = useRouter();
+
   return (
     <div
-      //   onClick={() => onClick(data.id)}
+      onClick={() => router.push(data.external_urls.spotify)}
       className="
         relative
         group

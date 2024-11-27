@@ -30,7 +30,8 @@ const SongsContainer = () => {
             `https://api.spotify.com/v1/me/top/tracks?time_range=${timeRange}&limit=10&offset=0`,
             {
               headers: {
-                Authorization: `Bearer ${user}`,
+                //@ts-ignore
+                Authorization: `Bearer ${user.accessToken}`,
               },
             }
           );
